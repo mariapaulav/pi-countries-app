@@ -1,0 +1,21 @@
+.bodyhome{
+    width: 100vw;
+    min-height: 100vh;
+    background-color: #1d211e;
+    overflow: auto;
+    color: #FFFFFF;
+    font-family: 'Questrial', sans-serif;
+}
+
+.arefhome{
+    color: #FFFFFF;
+}
+
+.orders{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: flex-start;
+    margin: 20px;
+}

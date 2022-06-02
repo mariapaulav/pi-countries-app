@@ -95,7 +95,7 @@ __Pagina inicial__: deben armar una landing page con
 - [ ] Botón para ingresar al home (`Ruta principal`)
 
 __Ruta principal__: debe contener
-- [ ] Input de búsqueda para encontrar países por nombre
+- [ ] Input de búsqueda para encontrar países por nombre // un searchBar
 - [ ] Área donde se verá el listado de países. Al iniciar deberá cargar los primeros resultados obtenidos desde la ruta `GET /countries` y deberá mostrar su:
   - Imagen de la bandera
   - Nombre

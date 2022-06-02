@@ -1,0 +1,8 @@
+.bgsb{
+    height: 100vh;
+    width: 100vw;
+    background-color: #1d211e;
+    overflow: auto;
+    color: #FFFFFF;
+    font-family: 'Questrial', sans-serif;
+}
