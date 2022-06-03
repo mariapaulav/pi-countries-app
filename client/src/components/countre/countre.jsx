@@ -8,7 +8,7 @@ export default function Countre ({name,flag, continent, id}){
         <Link to = {'country/' + id}>
             <img  src= {flag} className= 'imgF' alt= 'img not found' />
             <p className="arefCountry">{name}</p>
-            <p className="arefCountry">{continent}</p>
+            <p className="arefCountry continent">{continent}</p>
         </Link>
     </div>
     )

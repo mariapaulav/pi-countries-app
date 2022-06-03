@@ -55,7 +55,6 @@ function reducer(state = initialState, action){
             };
         case ORDER_BY_POPULATION:
             let orderedCountriesbyPopulation = [...state.countries]
-
             orderedCountriesbyPopulation = orderedCountriesbyPopulation.sort((a,b) => {
                 if(a.population < b.population){
                     return action.payload === 'MIN' ? -1 : 1
@@ -96,7 +95,7 @@ function reducer(state = initialState, action){
                     countries: state.filteredCountries.filter(a => a.activities && a.activities.map(e => e.name).includes(action.payload)
                     )
                 };    
-
+                
         case GET_COUNTRE_DETAIL:
             return{
                 ...state,

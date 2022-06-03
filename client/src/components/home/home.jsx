@@ -12,6 +12,7 @@ import OrderActivity from '../order/orderActivity';
 import Paginado from '../order/paginado';
 
 import './home.css'
+import Header from '../header/header';
 
 
 export default function Home (){
@@ -23,13 +24,13 @@ export default function Home (){
     const [currentPage, setCurrentPage] = useState(1)
     // aca las pagina actual que es 1 
 
-    const [countriesPerPage] = useState(10)
+    const [countriesPerPage,] = useState(9)
     // aca cuantas quiero por pagina 
 
+
+
     const indexOfLastCountry = currentPage * countriesPerPage // saber cual es la posicion del ultimo country // 9
-
     const indexofFirstCoutry = indexOfLastCountry - countriesPerPage // saber la posicion del primer country //   0
-
     const currentCountry = countries.slice(indexofFirstCoutry, indexOfLastCountry) // me guarde los countries de una pagina // toma esos indices 
 
     // me ayuda al renderizado 
@@ -44,22 +45,30 @@ export default function Home (){
 
 
     return <div className='bodyhome'>
+        <Header/>
+        <div className='ordersp'>
         <SearchBar 
-          setCurrentPage = {setCurrentPage}
+           setCurrentPage = {setCurrentPage}
         />
         <Link to = 'createactivity'>
-         <button>Create Activity </button>
+           <button className='btnCreateAct'>Create Activity </button>
         </Link>
-        <div className='orders'>
+        </div>
+        <div className='ordersp'>
         <Order/>
-        <OrderContinent/>
+        <OrderContinent
+        setCurrentPage = {setCurrentPage}
+        currentPage = {currentPage}
+        />
         <OrderByPopulation/>
         <OrderActivity
          setCurrentPage = {setCurrentPage}
+         currentPage = {currentPage}
          />
         
         <a href="http://localhost:3000/home" className='arefhome'> <BsArrowClockwise /> </a>
         </div>
+        <div className='orderCards'>
         {
       currentCountry.map((count) => {
         return (
@@ -74,6 +83,7 @@ export default function Home (){
         )
       })
     }
+    </div>
     <Paginado
           countriesPerPage={countriesPerPage}
           countries ={countries.length}

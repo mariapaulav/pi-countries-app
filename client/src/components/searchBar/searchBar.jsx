@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { searchCountries } from "../../store/actions";
+import './searchBar.css'
 
 export default function SearchBar({setCurrentPage}) {
   // este estado es para almacenar lo que me pasen en la busqueda 
@@ -23,8 +24,18 @@ export default function SearchBar({setCurrentPage}) {
   return (
     <div>
         <form onSubmit={onSubmit}> 
-            <input type = 'text' onChange={onInputChange} value = {search} placeholder = 'Enter country name'/>
-            <input type = 'submit' value = 'Search'/>
+            <input 
+            className='inputBox'
+            type = 'text' 
+            onChange={onInputChange} 
+            value = {search} 
+            placeholder = 'Enter country name'
+            />
+
+            <input 
+            className="btnSearch"
+            type = 'submit' 
+            value = 'Search'/>
         </form>
     </div>
   )

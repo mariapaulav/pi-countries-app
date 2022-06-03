@@ -4,6 +4,8 @@ import { Link, useHistory } from 'react-router-dom';
 import {  getCountries } from '../../store/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { postActivity } from '../../store/actions';
+import './addActivity.css'
+import Header from '../header/header';
 
 
 function validate (input){
@@ -35,8 +37,8 @@ function validate (input){
       } else if (!input.countries.length) {
         errors.countries = "Country is required!";
       }
-      console.log(input, 'input');
-      console.log(errors,'errors');
+    //   console.log(input, 'input');
+    //   console.log(errors,'errors');
 
     return errors
 }
@@ -58,7 +60,6 @@ export default function AddActivity (){
         duration: '',
         season:'',
         countries: []
-
     })
 
     useEffect(()=> {
@@ -108,11 +109,26 @@ export default function AddActivity (){
             season: e.target.value
         }));
     }
+
+    // const countryValidator = (countryName) =>{
+    //     //console.log(countryName,'countryname');
+    //     return [...input.countries].filter((e) => e === countryName)
+    // }
+
     function handleSelectCountries(e){
-        setInput({
-            ...input,
-            countries: [...input.countries, e.target.value]
-        });
+        e.preventDefault()
+        
+        //console.log(countryValidator(e.target.value),'countryvalidator');
+        // if(countryValidator(e.target.value).length > 0){
+
+        if(Object.values(input.countries).includes(e.target.value)){
+            alert('Country already selected');
+        }else{
+            setInput({
+                ...input,
+                countries: [...input.countries, e.target.value]
+            });
+        }
         setErrors(validate({
             ...input,
             countries: e.target.value
@@ -142,31 +158,33 @@ export default function AddActivity (){
         })
         history.push('/home')
         }
-        
     }
     
     return (
-    <div>
+    <div className='bodydetail'>
+        <Header/>
+        <div className='centerInfo'>
         <h1>Create Activity</h1>
        <form onSubmit={(e) =>handleSubmit(e)} autoComplete="off">
             <div>
             <label>Name:</label>
             <input 
+            className='spacesAndColorSelect'
             type= 'text'
             value = {input.name}
             name = 'name'
             onChange={(e)=> handleChange(e)}
             />
             {errors.name && (
-                <p>{errors.name}</p>
+                <p className='danger'>{errors.name}</p>
             )}
             </div>
-
+            <br/>
             <div>
             <label>Difficulty:</label>
             <input 
+            className='spacesAndColorSelect'
             type= 'number'
-            placeholder='select difficulty'
             value = {input.difficulty}
             name = 'difficulty'
             min={1}
@@ -174,13 +192,14 @@ export default function AddActivity (){
             onChange={(e)=> handleChangeDifficulty(e)}
             />
             {errors.difficulty && (
-                <p>{errors.difficulty}</p>
+                <p className='danger'>{errors.difficulty}</p>
             )}
             </div>
-
+            <br/>
             <div>       
             <label>Duration:</label>
             <input 
+            className='spacesAndColorSelect'
             type= 'number'
             value = {input.duration}
             name = 'duration'
@@ -189,13 +208,13 @@ export default function AddActivity (){
             onChange={(e)=> handleChangeDuration(e)}
             />
              {errors.duration && (
-                <p>{errors.duration}</p>
+                <p className='danger'>{errors.duration}</p>
             )}
             </div>
-
+            <br/>
             <div>       
             <label>Season:</label>
-            <select name="season" defaultValue={'DEFAULT'} onChange={(e)=> handleSelectSeason(e)}>
+            <select className='spacesAndColorSelect' name="season" defaultValue={'DEFAULT'} onChange={(e)=> handleSelectSeason(e)}>
             <option value='DEFAULT'  disabled defaultValue > All</option>
             <option value='Autumn'>Autumn</option>
             <option value='Summer'>Summer</option>
@@ -203,22 +222,22 @@ export default function AddActivity (){
             <option value='Winter'>Winter</option>
             </select>
             {errors.season && (
-                <p>{errors.season}</p>
+                <p className='danger'>{errors.season}</p>
             )}
             </div>
-
+            <br/>
             <div>       
             <label>Countries:</label>
-            <select name="countries" defaultValue={'DEFAULT'} onChange={(e)=> handleSelectCountries(e)} >
+            <select className='spacesAndColorSelectCountries' name="countries" defaultValue={'DEFAULT'} onChange={(e)=> handleSelectCountries(e)} >
             <option value='DEFAULT'  disabled defaultValue > All</option>
-            {countriees.map(country => (
+            {countriees  &&countriees.map(country => (
                     <option key={country.id} value={country.name}>
                       {country.name}
                     </option>
                   ))}
             </select>
             {errors.countries && (
-                <p>{errors.countries}</p>
+                <p className='danger'>{errors.countries}</p>
             )}
             </div>
             <p>
@@ -230,12 +249,13 @@ export default function AddActivity (){
                 })
                 }
             </p>
-            <button type='submit'>Create Activity</button>
+            <button className='btncreate' type='submit'>Create Activity</button>
 
        </form>
+       </div>
 
         <Link to ='/home'>
-            <button>home</button>
+        <h3 className='linkhome'>Go Home</h3>
         </Link>
     </div>
     

@@ -3,6 +3,8 @@ import { getCountreDetail } from "../../store/actions"
 import {useDispatch, useSelector} from 'react-redux'
 import {useParams} from "react-router-dom";
 import { Link } from 'react-router-dom';
+import './countreDetail.css'
+import Header from '../header/header';
 
 
 export default function CountreDetail (props){
@@ -18,26 +20,37 @@ export default function CountreDetail (props){
         dispatch(getCountreDetail(id))
     },[dispatch,id])
 
+    
+
     return (
-        <div>
-          <h1>{detail.name}</h1>
+        <div className='bodydetail'>
+          <Header/>
+              <div className='order2detail'>
           <div>
-            <img src={detail.flag} alt={detail.name} width="210" height="150" />
+            <div className='marginInfo1'>
+          <h1>{detail.name}</h1>
+          <p>{detail.id}</p>
+          </div>
+          <div className='ordersDetail'>
+            <img className='marginFlag' src={detail.flag} alt={detail.name} width="350" height="250" />
             <div>
             <p>Capital: {detail.capital}</p>
-            <p>Region: {detail.region}</p>
+            <p>Continent: {detail.continent}</p>
             <p>Subregion: {detail.subregion}</p>
-            <p>Area: {detail.area}</p>
+            <p>Area: {detail.area} Km <sup>2</sup></p>
             <p>Population: {detail.population}</p>
             </div>
+            </div>
           </div>
+
           {detail.activities && detail.activities.length ? (
             <>
-              <h3>Activities:</h3>
-              <ul>
+            <div className='marginActivity'>
+              <h1>Activities:</h1>
+              <ul className='uldetail'>
                 {detail.activities.map((a) => {
                   return (
-                    <div key={a.id} >
+                    <div key={a.id} className= 'ulactivitydetail'>
                       <h4> {a.name.toUpperCase()}</h4>
                       <p>Difficulty: {a.difficulty}</p>
                       <p>Duration: {a.duration} hours</p>
@@ -47,20 +60,23 @@ export default function CountreDetail (props){
                 })}
               </ul>
               <Link to={"/createactivity"}>
-                  <button>Create Activity</button>
-              </Link>
-              <Link to={"/home"}>
-                  <button>Home</button>
-              </Link>
+                  <button className='btnCreate'>Create Other Activity</button>
+          </Link>
+              </div>
             </>
           ) : (
-            <div>
-              <h3>Activities not found</h3>
+            <div className='marginActivity'>
+              <h1>Activities not found</h1>
               <Link to={"/createactivity"}>
-                  <button>Create Activity</button>
-              </Link>
+                  <button className='btnCreate'>Create Activity</button>
+          </Link>
             </div>
           )}
+             
+          </div>
+          <Link to={"/home"}>
+                  <p className='linkhome'>Home</p>
+              </Link>
         </div>
       );
 

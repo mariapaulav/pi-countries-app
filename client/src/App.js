@@ -23,7 +23,6 @@ function App() {
     <Route exact path = '/country/:id'>
         <CountreDetail/>
     </Route>
-
   </Switch>
     </div>
   );

@@ -11,11 +11,37 @@
     color: #FFFFFF;
 }
 
-.orders{
+.ordersp{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
-    align-content: flex-start;
+    justify-content: space-between;
+    align-content: center;
     margin: 20px;
 }
+
+
+.orderCards {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.btnCreateAct{
+    background-color:#476653;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border: none;
+    border-radius: 10px;
+    padding: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #ffffff;
+    font-family: 'Questrial', sans-serif;
+   
+}
+
+.btnCreateAct:hover{
+    color: #fff;
+    box-shadow: inset 200px 0 0 0  rgb(224, 201, 182);
+  }

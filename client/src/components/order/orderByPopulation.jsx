@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux"
 import { orderByPopulation } from "../../store/actions"
+import './orderByPopulation.css'
 
 export default function OrderByPopulation(){
 
@@ -7,12 +8,15 @@ export default function OrderByPopulation(){
 
     function onSelectChange(e){
         dispatch(orderByPopulation(e.target.value))
+        
     }
+
+
 
    return (
        <div> 
-       <label htmlFor="select">Order by Population</label>
-        <select name="select" defaultValue={'DEFAULT'} onChange={onSelectChange}>
+       <label htmlFor="select">Order by Population </label>
+        <select className="select-selected" name="select" defaultValue={'DEFAULT'} onChange={onSelectChange}>
         <option value='DEFAULT' disabled defaultValue> All</option>
             <option value='MIN'>MIN</option>
             <option value='MAX'>MAX</option>

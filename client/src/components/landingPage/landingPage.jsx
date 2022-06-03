@@ -5,11 +5,11 @@ export default function LandingPage (){
     return (
     
     <div className='body'>
+        <div className='positB'>
     <Link to = 'home'>
-        <div className='posit'>
         <button className='btn'>Enter</button>
-        </div>
     </Link>
+        </div>
     </div>
     )
 }   

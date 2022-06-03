@@ -9,15 +9,12 @@ router.get('/',async (req,res,next)=>{
         if(name){
             const country = await Country.findAll({
                 include: Activity,
-                attributes: [ 'name', 'id'], // eliminar esttoooo 
+                // attributes: [ 'name', 'id'], // 
                 where:{
                     name: {
                         [Op.iLike]: `%${name}%`,
                     }
                 },
-                order: [ // eliminar estoooo
-                    ['name', 'ASC'],
-                ]
             })
             if(country.length === 0){
                 res.status(404).send(`Country doesn't exist`)
@@ -27,9 +24,9 @@ router.get('/',async (req,res,next)=>{
         }else{
             await Country.findAll({
                 include: Activity,
-                 order: [ // eliminar estoooo
-                    ['name', 'ASC'],
-                ]
+                //  order: [ 
+                //     ['name', 'ASC'],
+                // ]
             })
             .then((c)=> { 
                 res.send(c)
