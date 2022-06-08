@@ -2,8 +2,8 @@ const { Router } = require('express');
 // Importar todos los routers;
 const countryRoute = require('./country')
 const activityRoute = require('./activity')
-const {Country} = require ('../db')
-const axios = require('axios')
+// const {Country} = require ('../db')
+// const axios = require('axios')
 
 const router = Router();
 

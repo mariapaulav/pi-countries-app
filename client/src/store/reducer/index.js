@@ -23,13 +23,13 @@ function reducer(state = initialState, action){
         case GET_COUNTRIES:
             return {
                 ...state,
-                countries: action.payload, // no lo traigo con data pq estoy usando fetch 
+                countries: action.payload, 
                 filteredCountries: action.payload // si se me esta llenando pero no me renderiza 
             };
         case SEARCH_COUNTRIES:
             return {
                 ...state,
-                countries: action.payload // no lo traigo con data pq estoy usando fetch 
+                countries: action.payload
             };
 
         case GET_ACTIVITIES:
@@ -72,7 +72,7 @@ function reducer(state = initialState, action){
             if(action.payload) {
                 return {
                     ...state,
-                    countries: state.filteredCountries.filter(count => count.continent === action.payload)
+                    countries: state.filteredCountries.filter(country => country.continent === action.payload)
                 }
             }else{
                 return {
@@ -92,7 +92,8 @@ function reducer(state = initialState, action){
         case FILTER_BY_ACTIVITY:
                 return {
                     ...state,
-                    countries: state.filteredCountries.filter(a => a.activities && a.activities.map(e => e.name).includes(action.payload)
+                    countries: state.filteredCountries.filter(
+                        country => country.activities && country.activities.map(activity => activity.name).includes(action.payload)
                     )
                 };    
                 
@@ -106,11 +107,6 @@ function reducer(state = initialState, action){
             return {
                 ...state,
             };
-
-        
-
-        
-
 
         default:
             return state;

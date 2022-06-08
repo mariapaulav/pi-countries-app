@@ -1,7 +1,7 @@
 import React from "react";
 import './paginado.css'
 
-export default function Paginado ({countriesPerPage, countries , paginado}){
+export default function Paginado ({countriesPerPage, countries , pagination}){
     const pagNumbers = []
 
     for (let i = 0; i < Math.ceil(countries/countriesPerPage); i++) {
@@ -15,7 +15,7 @@ export default function Paginado ({countriesPerPage, countries , paginado}){
                 return <button
                 className="btnpag "
                  key={number} 
-                 onClick={()=> paginado(number)}>{number}</button>
+                 onClick={()=> pagination(number)}>{number}</button>
             })}
             </ul>
         </nav>

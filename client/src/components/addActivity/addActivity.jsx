@@ -1,4 +1,3 @@
-// formulario que no me sirvio 
 import React, {useState, useEffect} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import {  getCountries } from '../../store/actions';
@@ -17,13 +16,13 @@ function validate (input){
       }
 
     if (!input.difficulty) {
-        errors.difficulty = 'Difficulty is required!';
+        errors.difficulty = 'Difficulty between 1 and 5 is required!';
       } else if (input.difficulty < 1 || input.difficulty > 5) {
         errors.difficulty = "Difficulty must be between 1 and 5!";
       }
     
       if (!input.duration) {
-        errors.duration = 'Duration is required!';
+        errors.duration = 'Duration in hours is required!';
       } else if (input.duration < 1 || input.duration > 12) {
         errors.duration = "Duration must be between 1 and 12!";
       }
@@ -37,13 +36,11 @@ function validate (input){
       } else if (!input.countries.length) {
         errors.countries = "Country is required!";
       }
-    //   console.log(input, 'input');
-    //   console.log(errors,'errors');
+      console.log(input, 'input');
+      console.log(errors,'errors');
 
     return errors
 }
-
-
 
 export default function AddActivity (){
     const dispatch = useDispatch()
@@ -53,7 +50,6 @@ export default function AddActivity (){
 
     const [errors, setErrors] = useState({})
 
-    // creo un estado para guardar el formulario
     const [input, setInput] = useState({
         name: '',
         difficulty: '',
@@ -64,7 +60,7 @@ export default function AddActivity (){
 
     useEffect(()=> {
         dispatch(getCountries())
-    },[dispatch]) 
+    },[dispatch])
 
     // manejando cada vez que cambien o se modifiquen mis inputs
     function handleChange(e){
@@ -151,7 +147,7 @@ export default function AddActivity (){
         alert('Activity Created')
         setInput({
             name: '',
-            difficulty: '',
+            difficulty: '', 
             duration: '',
             season:'',
             countries: []

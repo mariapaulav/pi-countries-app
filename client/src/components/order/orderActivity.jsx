@@ -4,8 +4,13 @@ import { filterByActivity, getActivities } from "../../store/actions"
 import './orderActivity.css'
 export default function OrderActivity({setCurrentPage, currentPage}){
     
-    const activ = useSelector((state)=> state.activities)
+    const activs = useSelector((state)=> state.activities)
     const dispatch = useDispatch()
+
+
+    useEffect(()=> {
+        dispatch(getActivities())
+    },[dispatch])
 
     function onSelectChange(e){
         e.preventDefault()
@@ -13,16 +18,13 @@ export default function OrderActivity({setCurrentPage, currentPage}){
         if (currentPage > 1) setCurrentPage(1);
     }
 
-    useEffect(()=> {
-        dispatch(getActivities())
-    },[dispatch])
 
    return (
        <div className="font"> 
        <label htmlFor="select">Filter by Activity  </label>
         <select  className="select-selected"  name="select" defaultValue={'DEFAULT'} onChange={onSelectChange}>
         <option value='DEFAULT' disabled defaultValue> All</option>
-            {activ && activ.map(a => {
+            {activs && activs.map(a => {
                 return (
                     <option key={a.name} value={a.name}>{a.name}</option>
                 )})}

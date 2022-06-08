@@ -8,9 +8,10 @@ router.get('/',async (req,res,next)=>{
     try {
         if(name){
             const country = await Country.findAll({
+                // attributes: [ 'name', 'flag'], // 
                 include: Activity,
-                // attributes: [ 'name', 'id'], // 
-                where:{
+                // order: [['name', 'ASC']],
+                where:{ 
                     name: {
                         [Op.iLike]: `%${name}%`,
                     }
@@ -22,19 +23,17 @@ router.get('/',async (req,res,next)=>{
             res.json(country)
             }
         }else{
-            await Country.findAll({
+             Country.findAll({
                 include: Activity,
-                //  order: [ 
-                //     ['name', 'ASC'],
-                // ]
-            })
-            .then((c)=> { 
+                })
+                .then((c)=> { 
                 res.send(c)
-         })
-         .catch(error => {
-             next(error, 'sere yo')
-         })
-        }
+                })
+                .catch(error => {
+                next(error, 'sere yo')
+                 })
+            }
+
     } catch (error) {
         next(error, 'o yo ')
     }

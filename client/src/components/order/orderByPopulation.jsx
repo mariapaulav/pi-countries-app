@@ -11,8 +11,6 @@ export default function OrderByPopulation(){
         
     }
 
-
-
    return (
        <div> 
        <label htmlFor="select">Order by Population </label>

@@ -10,35 +10,33 @@ import OrderContinent from '../order/orderContinent';
 import OrderByPopulation from '../order/orderByPopulation';
 import OrderActivity from '../order/orderActivity';
 import Paginado from '../order/paginado';
+import Header from '../header/header';
 
 import './home.css'
-import Header from '../header/header';
+
 
 
 export default function Home (){
 
     let countries = useSelector((state)=> state.countries)
-    // con use selector me traigo me traigo la parte que necesito de mi estado, lo que hacia con mapStateto...
-    let dispatch = useDispatch()
 
     const [currentPage, setCurrentPage] = useState(1)
-    // aca las pagina actual que es 1 
-
-    const [countriesPerPage,] = useState(9)
-    // aca cuantas quiero por pagina 
-
-
-
-    const indexOfLastCountry = currentPage * countriesPerPage // saber cual es la posicion del ultimo country // 9
-    const indexofFirstCoutry = indexOfLastCountry - countriesPerPage // saber la posicion del primer country //   0
-    const currentCountry = countries.slice(indexofFirstCoutry, indexOfLastCountry) // me guarde los countries de una pagina // toma esos indices 
+   
+    const [countriesPerPage] = useState(10)
+  
+    const indexOfLastCountry = currentPage === 1 ? 9 :currentPage * countriesPerPage  // saber cual es la posicion del ultimo country // 9
+    const indexofFirstCoutry = currentPage === 1 ? 0 : indexOfLastCountry - countriesPerPage // saber la posicion del primer country //   0
+    const currentCountry = countries.slice(indexofFirstCoutry, indexOfLastCountry) // me guarde los countries de una pagina // 
 
     // me ayuda al renderizado 
-    const paginado = (pageNumber) => {
-      setCurrentPage(pageNumber)
-    }
-    
-    // dispacha la accion que se trae a los personajes 
+    function pagination(pageNumber){
+     setCurrentPage(pageNumber)
+    } 
+
+    let dispatch = useDispatch()
+
+    //dispatch(getCountries())
+
     useEffect(()=> {
         dispatch(getCountries())
     },[dispatch])
@@ -48,7 +46,6 @@ export default function Home (){
         <Header/>
         <div className='ordersp'>
         <SearchBar 
-           setCurrentPage = {setCurrentPage}
         />
         <Link to = 'createactivity'>
            <button className='btnCreateAct'>Create Activity </button>
@@ -87,7 +84,7 @@ export default function Home (){
     <Paginado
           countriesPerPage={countriesPerPage}
           countries ={countries.length}
-          paginado ={paginado}
+          pagination ={pagination}
     />
     
 
