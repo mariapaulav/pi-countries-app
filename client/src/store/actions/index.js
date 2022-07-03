@@ -1,4 +1,5 @@
 import axios from 'axios' // nunca olvidar que lo debo importar sin los { } 
+import swal from 'sweetalert';
 export const GET_COUNTRIES = 'GET_COUNTRIES';
 export const SEARCH_COUNTRIES = 'SEARCH_COUNTRIES';
 export const ORDER_BY_NAME = "ORDER_BY_NAME";
@@ -8,6 +9,7 @@ export const ORDER_BY_POPULATION = "ORDER_BY_POPULATION";
 export const GET_ACTIVITIES = 'GET_ACTIVITIES';
 export const POST_ACTIVITY = 'POST_ACTIVITY';
 export const FILTER_BY_ACTIVITY = 'FILTER_BY_ACTIVITY';
+export const REMOVE_ACTIVITY_DETAIL= 'REMOVE_ACTIVITY_DETAIL'
 
 export function getCountries(){
     return function (dispatch){
@@ -32,7 +34,12 @@ export function searchCountries(search){
                 payload: json})
         })
         .catch(error =>{
-            alert('Country not found');
+            swal({
+                title: "Oops",
+                text: "Country not found",
+                icon: "error",
+                className: "red-bg",
+            });
             console.log(error);
         })
     }
@@ -54,17 +61,15 @@ export function getActivities(){
 }
 
 export function getCountreDetail(id){
-    return function(dispatch) { // ME RETORNA UNA FUNCION // el dispatch me lo pasa redux directamente 
-        return fetch(`http://localhost:3002/country/${id}`) // LLAMADO A mi DB
-          .then(response => response.json()) // esto convierte de json a JS 
+    return function(dispatch) { 
+        return fetch(`http://localhost:3002/country/${id}`) 
+          .then(response => response.json()) 
           .then(json => {
             dispatch({ type: GET_COUNTRE_DETAIL, 
-                payload: json }); // su payload es el objeto que me devolvio la llamada 
+                payload: json }); 
           })
       }
 }
-
-
 
 export function orderByName(order) {
     return {
@@ -100,7 +105,7 @@ export function postActivity(payload) {
     return async (dispatch) => {
         try {
             console.log(payload,'payload');
-            const response = await axios.post("http://localhost:3002/activity", payload);  // dispara la ruta de post/ crea el personaje -> hacer el post del payload que es lo que llega en el front 
+            const response = await axios.post("http://localhost:3002/activity", payload);  
       return dispatch({ type: POST_ACTIVITY, payload: response });
         } catch (error) {
             console.log(error, 'post activity ');
@@ -108,15 +113,15 @@ export function postActivity(payload) {
     };
   };
 
-  // export const postActivity = (payload) =>{
-//     return async () => {
-//         try {
-//             console.log(payload,'payload');
-//             const response = await axios.post("http://localhost:3002/activity/", payload) // dispara la ruta de post/ crea el personaje -> hacer el post del payload que es lo que llega en el front 
-//             console.log(response, 'response');
-//             return response;
-//         } catch (error) {
-//             console.log(error, 'postActivity');
-//         }
-//     }
-// }
+export function removeActivityDetail(id){
+        try {
+            const response =  axios.delete(`http://localhost:3002/activity/${id}`);
+            return {
+                type: REMOVE_ACTIVITY_DETAIL, 
+                payload: id,
+                response
+            }
+        } catch (error) {
+            console.log(error, 'delete activity ');
+        }
+}

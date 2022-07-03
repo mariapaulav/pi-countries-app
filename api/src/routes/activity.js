@@ -16,10 +16,10 @@ router.post('/', async (req, res, next) => {
           season
        })
 
-       countries.forEach( async (element) => {
+       countries.forEach( async (country) => {
            const countryExist = await Country.findOne (
                {
-                where: { name: element }
+                where: { name: country }
                }
            )
            await addActivity.addCountries(countryExist)
@@ -63,7 +63,6 @@ router.post('/', async (req, res, next) => {
 
 
 router.get('/', (req,res, next)=>{
-
     Activity.findAll({
     })
     .then((c)=> { 
@@ -74,5 +73,37 @@ router.get('/', (req,res, next)=>{
  })
 
 })
+
+router.get('/:id',async (req,res,next)=>{
+    const {id} = req.params
+    try {
+        if(id){
+            const countryId = await Activity.findByPk(id)
+            res.send(countryId);
+        }
+    } catch (error) {
+        next(error)
+    }
+
+})
+
+router.delete('/:id',async (req,res,next)=>{
+    const {id} = req.params
+    try {
+        const row = await Activity.findOne({
+            where: {
+                id: id
+            }
+          });
+        if(row){
+            await row.destroy(); 
+            res.send('deleted');
+        }
+    } catch (error) {
+        next(error, 'error del delete')
+    }
+
+})
+
 
 module.exports = router;

@@ -6,7 +6,8 @@ import {GET_COUNTRE_DETAIL,
      POST_ACTIVITY,
      ORDER_BY_POPULATION,
      FILTER_BY_ACTIVITY,
-     GET_ACTIVITIES
+     GET_ACTIVITIES,
+     REMOVE_ACTIVITY_DETAIL
 
 
     } from '../actions/index'
@@ -15,7 +16,7 @@ const initialState ={
     countries : [],
     filteredCountries: [],
     activities : [],
-    countreDetail: {}
+    countreDetail: {}  
 }
 
 function reducer(state = initialState, action){
@@ -100,7 +101,7 @@ function reducer(state = initialState, action){
         case GET_COUNTRE_DETAIL:
             return{
                 ...state,
-                countreDetail: action.payload
+                countreDetail: action.payload,
             };
 
         case POST_ACTIVITY:
@@ -108,11 +109,15 @@ function reducer(state = initialState, action){
                 ...state,
             };
 
+        case REMOVE_ACTIVITY_DETAIL:
+            return{
+                ...state,
+                //countreDetail: state.countreDetail.activities.filter(activities => activities.id !== action.payload),
+            }
         default:
             return state;
     }
 }
-
 export default reducer;
 
 

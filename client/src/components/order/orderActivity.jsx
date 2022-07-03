@@ -6,7 +6,7 @@ export default function OrderActivity({setCurrentPage, currentPage}){
     
     const activs = useSelector((state)=> state.activities)
     const dispatch = useDispatch()
-
+    
 
     useEffect(()=> {
         dispatch(getActivities())

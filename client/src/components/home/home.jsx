@@ -22,11 +22,11 @@ export default function Home (){
 
     const [currentPage, setCurrentPage] = useState(1)
    
-    const [countriesPerPage] = useState(10)
+    const [countriesPerPage] = useState(9)
   
-    const indexOfLastCountry = currentPage === 1 ? 9 :currentPage * countriesPerPage  // saber cual es la posicion del ultimo country // 9
-    const indexofFirstCoutry = currentPage === 1 ? 0 : indexOfLastCountry - countriesPerPage // saber la posicion del primer country //   0
-    const currentCountry = countries.slice(indexofFirstCoutry, indexOfLastCountry) // me guarde los countries de una pagina // 
+    const indexOfLastCountry = currentPage * countriesPerPage  
+    const indexofFirstCoutry = indexOfLastCountry - countriesPerPage 
+    const currentCountry = countries.slice(indexofFirstCoutry, indexOfLastCountry) 
 
     // me ayuda al renderizado 
     function pagination(pageNumber){

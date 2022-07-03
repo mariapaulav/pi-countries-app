@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { getCountreDetail } from "../../store/actions"
+import React, {useEffect, useState} from 'react';
+import { getCountreDetail, removeActivityDetail} from "../../store/actions"
 import {useDispatch, useSelector} from 'react-redux'
 import {useParams} from "react-router-dom";
 import { Link } from 'react-router-dom';
@@ -7,20 +7,23 @@ import './countreDetail.css'
 import Header from '../header/header';
 
 
-export default function CountreDetail (props){
+export default function CountreDetail (){
     const { id } = useParams();
-    // console.log(id);
-    // console.log(props , 'props');
-    // let idPrueba = props.match.params.id
-    // console.log(idPrueba,'id prueba');
+    const [, setActivies] =useState([])
     let detail = useSelector((state)=> state.countreDetail)
     let dispatch = useDispatch()
-  
-    useEffect(()=> {
-        dispatch(getCountreDetail(id))
-    },[dispatch,id])
+    let activities = detail.activities
+   
 
-    
+    function handleDeleteAcivity(e){
+      activities = detail.activities.filter((a) => a.id !== e)
+      detail.activities = activities
+      setActivies(activities)
+    }
+
+    useEffect(()=> {
+      dispatch(getCountreDetail(id))
+  },[dispatch,id])  
 
     return (
         <div className='bodydetail'>
@@ -43,18 +46,24 @@ export default function CountreDetail (props){
             </div>
           </div>
 
-          {detail.activities && detail.activities.length ? (
+          {activities && activities.length ? (
             <>
             <div className='marginActivity'>
               <h1>Activities:</h1>
               <ul className='uldetail'>
-                {detail.activities.map((a) => {
+                {activities.map((activity) => {
                   return (
-                    <div key={a.id} className= 'ulactivitydetail'>
-                      <h4> {a.name.toUpperCase()}</h4>
-                      <p>Difficulty: {a.difficulty}</p>
-                      <p>Duration: {a.duration} hours</p>
-                      <p>Season: {a.season}</p>
+                    <div key={activity.id} className= 'ulactivitydetail'>
+                      <h4> {activity.name.toUpperCase()}
+                      <button 
+                      className='btncreate2' 
+                      value = {activity.id} 
+                      onClick = {()=> {removeActivityDetail(activity.id) ; handleDeleteAcivity(activity.id)} }
+                      >x</button>
+                      </h4>
+                      <p>Difficulty: {activity.difficulty}</p>
+                      <p>Duration: {activity.duration} hours</p>
+                      <p>Season: {activity.season}</p>
                     </div>
                   );
                 })}
@@ -78,20 +87,6 @@ export default function CountreDetail (props){
                   <p className='linkhome'>Home</p>
               </Link>
         </div>
+        
       );
-
-
-    // return (
-    //     <div>
-    //         <div>{detail.name}</div>
-    //         <img  src= {detail.flag} alt= 'img not found' width="210" height="150"/>
-    //         <p>{detail.population}</p>
-    //         <p>{detail.capital}</p>
-            
-    //         <Link to ='/home'>
-    //         <button>home</button>
-    //     </Link>
-    //     </div>
-    //     )
-    
 }

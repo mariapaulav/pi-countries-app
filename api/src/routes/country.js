@@ -30,12 +30,12 @@ router.get('/',async (req,res,next)=>{
                 res.send(c)
                 })
                 .catch(error => {
-                next(error, 'sere yo')
+                next(error)
                  })
             }
 
     } catch (error) {
-        next(error, 'o yo ')
+        next(error)
     }
 })
 

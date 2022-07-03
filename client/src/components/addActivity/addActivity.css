@@ -64,3 +64,18 @@
 .linkhome:hover {
     transform: scale(1.1)
   }
+
+.btncreate1{
+    border: 2px solid #476653;
+    background-color: transparent;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border-radius: 10px;
+    padding: 4px 8px 4px 8px;
+    color: #ffffff;
+    font-family: 'Questrial', sans-serif;
+}
+.btncreate1:hover{
+    color: #fff;
+    box-shadow: inset 200px 0 0 0 rgb(224, 201, 182);
+    border: 2px solid rgb(224, 201, 182);
+  }

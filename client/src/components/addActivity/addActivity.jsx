@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { postActivity } from '../../store/actions';
 import './addActivity.css'
 import Header from '../header/header';
+import swal from 'sweetalert';
 
 
 function validate (input){
@@ -36,8 +37,8 @@ function validate (input){
       } else if (!input.countries.length) {
         errors.countries = "Country is required!";
       }
-      console.log(input, 'input');
-      console.log(errors,'errors');
+    //   console.log(input, 'input');
+    //   console.log(errors,'errors');
 
     return errors
 }
@@ -113,12 +114,14 @@ export default function AddActivity (){
 
     function handleSelectCountries(e){
         e.preventDefault()
-        
-        //console.log(countryValidator(e.target.value),'countryvalidator');
-        // if(countryValidator(e.target.value).length > 0){
 
         if(Object.values(input.countries).includes(e.target.value)){
-            alert('Country already selected');
+            swal({
+                title: "Oops",
+                text: "Country Already Selected",
+                icon: "error",
+                className: "red-bg",
+            });
         }else{
             setInput({
                 ...input,
@@ -140,20 +143,40 @@ export default function AddActivity (){
                 ...input,
                 [e.target.name]: e.target.value
             }));
-            alert('Missing information')
+            swal({
+                title: "Oops",
+                text: "Missing information",
+                icon: "error"
+            });
             history.push('/createactivity')
         }else {
         dispatch(postActivity(input))
-        alert('Activity Created')
+        swal({
+            title: "Nice",
+            text: "Activity created!",
+            icon: "success"
+        });
         setInput({
             name: '',
             difficulty: '', 
             duration: '',
             season:'',
-            countries: []
+            countries: [],
         })
-        history.push('/home')
+        history.replace('/home')
         }
+    }
+
+
+    function handlecountryDelete(e){
+        console.log(e)
+        console.log(e.target.value);
+        e.preventDefault()
+        const countryExist = input.countries.filter((c) => c !== e.target.value)
+        setInput({
+            ...input,
+            countries: countryExist
+        })
     }
     
     return (
@@ -240,7 +263,7 @@ export default function AddActivity (){
                 {
                 input.countries.map(function(el){
                     return (
-                    <li key={el}> {el  +  ' ' }</li>
+                    <li key={el}> {el  +  ' ' } <button  className='btncreate1' value ={el} onClick={(e)=> handlecountryDelete(e)}>x</button> </li>
                     )
                 })
                 }
