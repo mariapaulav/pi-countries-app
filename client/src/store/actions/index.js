@@ -12,28 +12,29 @@ export const FILTER_BY_ACTIVITY = 'FILTER_BY_ACTIVITY';
 export const REMOVE_ACTIVITY_DETAIL= 'REMOVE_ACTIVITY_DETAIL'
 
 export function getCountries(){
-    return function (dispatch){
-        return fetch('http://localhost:3002/country/')
-        .then(response => response.json())
-        .then(json => {
-            dispatch({type:GET_COUNTRIES, // dispatch para despachar la action 
-                payload: json})
-        })
-        .catch(error =>{
+    return async function (dispatch){
+        try {
+            let json = await axios.get('/country');
+            return dispatch({
+                type:GET_COUNTRIES,
+                payload: json.data,
+            })
+        } catch (error) {
             console.log(error, 'errorGetCountries');
-        })
+        }
     }
-}
+};
+
 
 export function searchCountries(search){
-    return function (dispatch){
-        return fetch(`http://localhost:3002/country?name=${search}`)
-        .then(response => response.json())
-        .then(json => {
-            dispatch({type:SEARCH_COUNTRIES, 
-                payload: json})
-        })
-        .catch(error =>{
+    return async function (dispatch){
+        try {
+            const response = await axios.get(`/country?name=${search}`);
+            dispatch({
+                type: SEARCH_COUNTRIES,
+                payload: response.data
+            });
+        } catch (error) {
             swal({
                 title: "Oops",
                 text: "Country not found",
@@ -41,18 +42,17 @@ export function searchCountries(search){
                 className: "red-bg",
             });
             console.log(error);
-        })
+        }
     }
 }
 
 export function getActivities(){
     return async function (dispatch){
         try {
-            const response = await fetch('http://localhost:3002/activity/');
-            const json = await response.json();
+            const response = await axios.get('/activity/');
             dispatch({
                 type: GET_ACTIVITIES,
-                payload: json
+                payload: response.data
             });
         } catch (error) {
             console.log(error);
@@ -61,15 +61,18 @@ export function getActivities(){
 }
 
 export function getCountreDetail(id){
-    return function(dispatch) { 
-        return fetch(`http://localhost:3002/country/${id}`) 
-          .then(response => response.json()) 
-          .then(json => {
-            dispatch({ type: GET_COUNTRE_DETAIL, 
-                payload: json }); 
-          })
-      }
-}
+    return async function (dispatch){
+        try {
+            let json = await axios.get(`/country/${id}`);
+            return dispatch({ 
+                type: GET_COUNTRE_DETAIL, 
+                payload: json.data
+            }); 
+        } catch (error) {
+            console.log(error, 'errorGetCountriesid');
+        }
+    }
+};
 
 export function orderByName(order) {
     return {
@@ -105,7 +108,7 @@ export function postActivity(payload) {
     return async (dispatch) => {
         try {
             console.log(payload,'payload');
-            const response = await axios.post("http://localhost:3002/activity", payload);  
+            const response = await axios.post("/activity", payload);  
       return dispatch({ type: POST_ACTIVITY, payload: response });
         } catch (error) {
             console.log(error, 'post activity ');
@@ -115,7 +118,7 @@ export function postActivity(payload) {
 
 export function removeActivityDetail(id){
         try {
-            const response =  axios.delete(`http://localhost:3002/activity/${id}`);
+            const response =  axios.delete(`/activity/${id}`);
             return {
                 type: REMOVE_ACTIVITY_DETAIL, 
                 payload: id,

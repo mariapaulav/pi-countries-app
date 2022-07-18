@@ -26,7 +26,7 @@ const { conn, Country} = require('./src/db.js'); // importo la connexion a la DB
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-  server.listen(3002, async () => {
+  server.listen(process.env.PORT, async () => {
     console.log('%s listening at 3002'); // eslint-disable-line no-console
     try {
       const getAllCountries = await axios.get("https://restcountries.com/v3/all");
