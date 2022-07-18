@@ -63,7 +63,7 @@ export default function Home (){
          currentPage = {currentPage}
          />
         
-        <a href="http://localhost:3000/home" className='arefhome'> <BsArrowClockwise /> </a>
+        <a href= '/home' className='arefhome'> <BsArrowClockwise /> </a>
         </div>
         <div className='orderCards'>
         {
