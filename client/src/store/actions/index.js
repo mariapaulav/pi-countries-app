@@ -15,14 +15,13 @@ export const REMOVE_ACTIVITY_DETAIL= 'REMOVE_ACTIVITY_DETAIL';
 
 dotenv.config();
 
-axios.defaults.baseURL = process.env.REACT_APP_API || 'http://localhost:3002/';
-
+const URL = process.env.REACT_APP_API || "http://localhost:3002";
 
 
 export function getCountries(){
     return async function (dispatch){
         try {
-            let json = await axios.get('/country');
+            let json = await axios.get(`${URL}/country`);
             return dispatch({
                 type:GET_COUNTRIES,
                 payload: json.data,
@@ -37,7 +36,7 @@ export function getCountries(){
 export function searchCountries(search){
     return async function (dispatch){
         try {
-            const response = await axios.get(`/country?name=${search}`);
+            const response = await axios.get(`${URL}/country?name=${search}`);
             dispatch({
                 type: SEARCH_COUNTRIES,
                 payload: response.data
@@ -57,7 +56,7 @@ export function searchCountries(search){
 export function getActivities(){
     return async function (dispatch){
         try {
-            const response = await axios.get('/activity/');
+            const response = await axios.get(`${URL}/activity/`);
             dispatch({
                 type: GET_ACTIVITIES,
                 payload: response.data
@@ -71,7 +70,7 @@ export function getActivities(){
 export function getCountreDetail(id){
     return async function (dispatch){
         try {
-            let json = await axios.get(`/country/${id}`);
+            let json = await axios.get(`${URL}/country/${id}`);
             return dispatch({ 
                 type: GET_COUNTRE_DETAIL, 
                 payload: json.data
@@ -116,7 +115,7 @@ export function postActivity(payload) {
     return async (dispatch) => {
         try {
             console.log(payload,'payload');
-            const response = await axios.post("/activity", payload);  
+            const response = await axios.post(`${URL}/activity`, payload);  
       return dispatch({ type: POST_ACTIVITY, payload: response });
         } catch (error) {
             console.log(error, 'post activity ');
@@ -126,7 +125,7 @@ export function postActivity(payload) {
 
 export function removeActivityDetail(id){
         try {
-            const response =  axios.delete(`/activity/${id}`);
+            const response =  axios.delete(`${URL}/activity/${id}`);
             return {
                 type: REMOVE_ACTIVITY_DETAIL, 
                 payload: id,
