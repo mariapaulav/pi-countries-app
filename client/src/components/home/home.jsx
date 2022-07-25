@@ -41,11 +41,10 @@ export default function Home (){
 
     useEffect(()=> {
         setLoading(true)
-        
         dispatch(getCountries())
         setTimeout(()=> {
           setLoading(false)
-        },0)
+        },1000)
     },[dispatch])
 
 
