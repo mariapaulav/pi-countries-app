@@ -39,15 +39,18 @@ export default function Home (){
 
     //dispatch(getCountries())
 
+  //   useEffect(()=> {
+  //     setLoading(true)
+  //     setTimeout(()=> {
+  //       setLoading(false)
+  //     },3000)
+  // },[])
     useEffect(()=> {
       setLoading(true)
+      dispatch(getCountries())
       setTimeout(()=> {
         setLoading(false)
-      },3000)
-  },[])
-    useEffect(()=> {
-  
-        dispatch(getCountries())
+      },2000)
     },[dispatch])
 
 
