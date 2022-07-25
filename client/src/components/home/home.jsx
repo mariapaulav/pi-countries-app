@@ -41,6 +41,7 @@ export default function Home (){
 
     useEffect(()=> {
         setLoading(true)
+        
         dispatch(getCountries())
         setTimeout(()=> {
           setLoading(false)
@@ -88,7 +89,7 @@ export default function Home (){
           />
           
         }
-       { console.log('loading',loading)}
+       
           </>
         
         )
