@@ -13,6 +13,7 @@ import Paginado from '../order/paginado';
 import Header from '../header/header';
 
 import './home.css'
+import Loader from '../loading/Loader';
 
 
 
@@ -21,6 +22,7 @@ export default function Home (){
     let countries = useSelector((state)=> state.countries)
 
     const [currentPage, setCurrentPage] = useState(1)
+    const [loading, setLoading] = useState(null)
    
     const [countriesPerPage] = useState(9)
   
@@ -38,7 +40,9 @@ export default function Home (){
     //dispatch(getCountries())
 
     useEffect(()=> {
+        setLoading(true)
         dispatch(getCountries())
+        setLoading(false)
     },[dispatch])
 
 
@@ -69,6 +73,9 @@ export default function Home (){
         {
       currentCountry.map((count) => {
         return (
+          <>
+          {loading && <Loader/>}
+          {console.log('loadinggg')}
           <Countre
             key={count.id}
             id={count.id}
@@ -77,6 +84,7 @@ export default function Home (){
             continent={count.continent}
             population={count.population}
           />
+          </>
         )
       })
     }
