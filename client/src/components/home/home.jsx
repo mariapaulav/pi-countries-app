@@ -13,7 +13,7 @@ import Paginado from '../order/paginado';
 import Header from '../header/header';
 
 import './home.css'
-//import Loader from '../loading/Loader';
+import Loader from '../loading/Loader';
 
 
 
@@ -22,7 +22,7 @@ export default function Home (){
     let countries = useSelector((state)=> state.countries)
 
     const [currentPage, setCurrentPage] = useState(1)
-    //const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
    
     const [countriesPerPage] = useState(9)
   
@@ -40,69 +40,58 @@ export default function Home (){
     //dispatch(getCountries())
 
     useEffect(()=> {
-        // setLoading(true)
+      setLoading(true)
+      setTimeout(()=> {
+        setLoading(false)
+      },1000)
+  },[])
+    useEffect(()=> {
+  
         dispatch(getCountries())
-        // setTimeout(()=> {
-        //   setLoading(false)
-        // },5000)
     },[dispatch])
 
 
-    return <div className='bodyhome'>
+    return (
+    <div className='bodyhome'>
         <Header/>
-        <div className='ordersp'>
-        <SearchBar 
-        />
-        <Link to = 'createactivity'>
-           <button className='btnCreateAct'>Create Activity </button>
-        </Link>
-        </div>
-        <div className='ordersp'>
-        <Order/>
-        <OrderContinent
-        setCurrentPage = {setCurrentPage}
-        currentPage = {currentPage}
-        />
-        <OrderByPopulation/>
-        <OrderActivity
-         setCurrentPage = {setCurrentPage}
-         currentPage = {currentPage}
-         />
-        
-        <a href= '/home' className='arefhome'> <BsArrowClockwise /> </a>
-        </div>
-        <div className='orderCards'>
-        {
-      currentCountry.map((count) => {
-        return (
-          <>
-          {/* {loading ? <Loader/> : */}
-          
-          <Countre
-            key={count.id}
-            id={count.id}
-            name={count.name}
-            flag={count.flag}
-            continent={count.continent}
-            population={count.population}
-          />
-          
-       {/*  } */}
-       
-          </>
-        
-        )
-      })
-    }
-    </div>
-    <Paginado
-          countriesPerPage={countriesPerPage}
-          countries ={countries.length}
-          pagination ={pagination}
-    />
-    
+        {loading ? <Loader/> :
+        <><div className='ordersp'>
+            <SearchBar />
+            <Link to='createactivity'>
+              <button className='btnCreateAct'>Create Activity </button>
+            </Link>
+          </div><div className='ordersp'>
+              <Order />
+              <OrderContinent
+                setCurrentPage={setCurrentPage}
+                currentPage={currentPage} />
+              <OrderByPopulation />
+              <OrderActivity
+                setCurrentPage={setCurrentPage}
+                currentPage={currentPage} />
 
+              <a href='/home' className='arefhome'> <BsArrowClockwise /> </a>
+            </div><div className='orderCards'>
+
+              {currentCountry.map((count) => {
+                return (
+                      <Countre
+                        key={count.id}
+                        id={count.id}
+                        name={count.name}
+                        flag={count.flag}
+                        continent={count.continent}
+                        population={count.population} />
+                );
+              })}
+            </div><Paginado
+              countriesPerPage={countriesPerPage}
+              countries={countries.length}
+              pagination={pagination} /></>
+    
+            }
   </div>
+    )
 }
 
 

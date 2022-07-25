@@ -1,4 +1,12 @@
 
+.containerLoader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 150px;
+}
+
+
 @keyframes ldio-qbss75lli8 {
   0% { opacity: 1 }
   50% { opacity: .5 }
