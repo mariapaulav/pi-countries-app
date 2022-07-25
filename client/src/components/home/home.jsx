@@ -22,7 +22,7 @@ export default function Home (){
     let countries = useSelector((state)=> state.countries)
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [loading, setLoading] = useState(null)
+    const [loading, setLoading] = useState(false)
    
     const [countriesPerPage] = useState(9)
   
@@ -41,8 +41,11 @@ export default function Home (){
 
     useEffect(()=> {
         setLoading(true)
+        
         dispatch(getCountries())
-        setLoading(false)
+        setTimeout(()=> {
+          setLoading(false)
+        },0)
     },[dispatch])
 
 
@@ -74,8 +77,8 @@ export default function Home (){
       currentCountry.map((count) => {
         return (
           <>
-          {loading && <Loader/>}
-          {console.log('loadinggg')}
+          {loading ? <Loader/> :
+          
           <Countre
             key={count.id}
             id={count.id}
@@ -84,7 +87,11 @@ export default function Home (){
             continent={count.continent}
             population={count.population}
           />
+          
+        }
+       { console.log('loading',loading)}
           </>
+        
         )
       })
     }
