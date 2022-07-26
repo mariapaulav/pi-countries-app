@@ -22,7 +22,7 @@ export default function Home (){
     let countries = useSelector((state)=> state.countries)
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [loading, setLoading] = useState(false)
+    //const [loading, setLoading] = useState(false)
    
     const [countriesPerPage] = useState(9)
   
@@ -46,18 +46,18 @@ export default function Home (){
   //     },3000)
   // },[])
     useEffect(()=> {
-      setLoading(true)
+      //setLoading(true)
       dispatch(getCountries())
-      setTimeout(()=> {
-        setLoading(false)
-      },2000)
+      //setTimeout(()=> {
+        //setLoading(false)
+      //},2000)
     },[dispatch])
 
 
     return (
     <div className='bodyhome'>
         <Header/>
-        {loading ? <Loader/> :
+        {countries.length === 0 ? <Loader/> :
         <><div className='ordersp'>
             <SearchBar />
             <Link to='createactivity'>
